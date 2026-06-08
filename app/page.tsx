@@ -317,16 +317,16 @@ export default function Home() {
           <hr className="mini-rule" />
           <div className="invitation-copy">
             <p>
-              By the boundless grace of the Almighty and the blessed merit
+              By the boundless grace of the Almighty and the blessed merit{" "}
               <br />
-              of our ancestors, a joyous and auspicious ceremony is being
+              of our ancestors, a joyous and auspicious ceremony is being{" "}
               <br />
               celebrated in our family.
             </p>
             <p>
-              We cordially invite you to grace the sweet occasion of
+              We cordially invite you to grace the sweet occasion of{" "}
               <br />
-              holy matrimony with your esteemed presence, and bestow
+              holy matrimony with your esteemed presence, and bestow{" "}
               <br />
               your blessings upon the newly married couple.
             </p>
@@ -487,7 +487,7 @@ export default function Home() {
         <section className="pillars reveal-section">
           <SectionHeader title="Our Pillars Of Strength" />
           <p className="pillars-intro">
-            We express our heartfelt gratitude to our well-wishers
+            We express our heartfelt gratitude to our well-wishers{" "}
             <br />
             and family establishments for their constant support.
           </p>
