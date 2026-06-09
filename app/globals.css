@@ -280,14 +280,27 @@ hr {
   place-items: center;
   overflow: hidden;
   padding: 80px 24px 64px;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   background-image:
     linear-gradient(to bottom, rgba(12, 10, 6, 0.55) 0%, rgba(12, 10, 6, 0.3) 40%, rgba(12, 10, 6, 0.85) 85%, rgba(12, 10, 6, 1) 100%),
     url("/mural-rajmahal-palace.jpg");
   background-position: center center;
   background-size: cover;
+  filter: blur(8px);
+  transform: scale(1.05);
+  pointer-events: none;
 }
 
 .hero-inner {
+  position: relative;
+  z-index: 1;
   width: min(100%, 980px);
   display: flex;
   flex-direction: column;
@@ -362,13 +375,27 @@ hr {
   position: absolute;
   left: 50%;
   bottom: 24px;
-  width: 16px;
-  height: 16px;
-  border-right: 1px solid rgba(201, 146, 42, 0.5);
-  border-bottom: 1px solid rgba(201, 146, 42, 0.5);
+  width: 18px;
+  height: 18px;
+  border-right: 1.3px solid rgba(201, 146, 42, 0.65);
+  border-bottom: 1.3px solid rgba(201, 146, 42, 0.65);
   transform: translateX(-50%) rotate(45deg);
   animation: chevronFloat 2s ease-in-out infinite;
+  z-index: 1;
 }
+
+.scroll-text {
+  color: var(--color-gold-light);
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  animation: pulseText 2s ease-in-out infinite;
+  margin: 0;
+  pointer-events: none;
+}
+
 
 .invitation {
   width: min(100%, 680px);
@@ -1156,3 +1183,237 @@ address {
     display: none;
   }
 }
+
+/* ════════════════════════════════════════════════ */
+/*               INVITATION GATE OVERLAY            */
+/* ════════════════════════════════════════════════ */
+.gate-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #0c0a06;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-parchment);
+  user-select: none;
+  cursor: pointer;
+  transition: opacity 1s ease-in-out;
+  overflow: hidden;
+}
+
+.gate-fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Borders/Frames */
+.gate-frame {
+  position: absolute;
+  inset: 1.5rem;
+  border: 1px solid rgba(201, 146, 42, 0.25);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.gate-frame-inner {
+  position: absolute;
+  inset: calc(1.5rem + 5px);
+  border: 1px solid rgba(201, 146, 42, 0.12);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Corner Ornaments using CSS Borders */
+.gate-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-gold-primary);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.gate-corner--tl {
+  top: 1.25rem;
+  left: 1.25rem;
+  border-right: none;
+  border-bottom: none;
+}
+
+.gate-corner--tr {
+  top: 1.25rem;
+  right: 1.25rem;
+  border-left: none;
+  border-bottom: none;
+}
+
+.gate-corner--bl {
+  bottom: 1.25rem;
+  left: 1.25rem;
+  border-right: none;
+  border-top: none;
+}
+
+.gate-corner--br {
+  bottom: 1.25rem;
+  right: 1.25rem;
+  border-left: none;
+  border-top: none;
+}
+
+/* Centered Content Container */
+.gate-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 580px;
+  width: 100%;
+  gap: 1.8rem;
+  z-index: 10;
+}
+
+/* Ornament Shimmer */
+.gate-ornament-wrapper {
+  margin-bottom: 0.5rem;
+}
+
+.gate-ornament {
+  width: auto;
+  height: auto;
+  max-width: clamp(160px, 30vw, 220px);
+  animation: goldShimmer 4.5s ease-in-out infinite;
+}
+
+/* Title Styling */
+.gate-title {
+  color: var(--color-ivory);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-shadow: 0 2px 20px rgba(201, 146, 42, 0.22);
+}
+
+.gate-divider-small {
+  width: 120px;
+  height: 1px;
+  border: none;
+  background: linear-gradient(to right, transparent, var(--color-gold-primary), transparent);
+  margin: 0;
+  opacity: 0.6;
+}
+
+/* Date Styling */
+.gate-date {
+  color: var(--color-gold-foil);
+  font-family: var(--font-label);
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Tagline Styling */
+.gate-tagline {
+  color: var(--color-parchment);
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 3.2vw, 1.35rem);
+  font-style: italic;
+  line-height: 1.7;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+/* Action/Trigger Text */
+.gate-action {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  font-style: italic;
+  letter-spacing: 0.08em;
+  margin-top: 1rem;
+}
+
+.gate-action--pulse {
+  color: var(--color-gold-light);
+  animation: pulseText 2s ease-in-out infinite;
+}
+
+.gate-action--loading {
+  color: var(--color-parchment);
+  opacity: 0.8;
+}
+
+.gate-bottom-lotus {
+  width: 36px;
+  height: 36px;
+  fill: none;
+  stroke: var(--color-gold-primary);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+  margin-top: 1rem;
+  opacity: 0.6;
+}
+
+/* Keyframes */
+@keyframes goldShimmer {
+  0%, 100% {
+    filter: brightness(1) contrast(1) drop-shadow(0 0 2px rgba(201, 146, 42, 0.25));
+  }
+  50% {
+    filter: brightness(1.22) contrast(1.08) drop-shadow(0 0 10px rgba(245, 223, 160, 0.65));
+  }
+}
+
+@keyframes pulseText {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* Mobile Responsiveness adjust inset spacing */
+@media (max-width: 640px) {
+  .gate-frame {
+    inset: 0.75rem;
+  }
+  .gate-frame-inner {
+    inset: calc(0.75rem + 4px);
+  }
+  .gate-corner {
+    width: 16px;
+    height: 16px;
+  }
+  .gate-corner--tl {
+    top: 0.6rem;
+    left: 0.6rem;
+  }
+  .gate-corner--tr {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+  .gate-corner--bl {
+    bottom: 0.6rem;
+    left: 0.6rem;
+  }
+  .gate-corner--br {
+    bottom: 0.6rem;
+    right: 0.6rem;
+  }
+  .gate-content {
+    gap: 1.3rem;
+  }
+}
+

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import InvitationGate from "@/components/InvitationGate";
 
 const ceremonies = [
   {
@@ -217,6 +218,16 @@ function ParticleCanvas() {
 
 export default function Home() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [showGate, setShowGate] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isOpened = localStorage.getItem("gateOpened");
+      if (isOpened !== "true") {
+        setShowGate(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll<HTMLElement>(".reveal-section"));
@@ -240,6 +251,13 @@ export default function Home() {
     const audio = audioRef.current;
     if (!audio) return;
 
+    // Only run normal autoplay if the gate was already opened in this browser
+    const isOpened = localStorage.getItem("gateOpened");
+    if (isOpened !== "true") {
+      audio.volume = 0;
+      return;
+    }
+
     audio.volume = 0.36;
 
     const playAudio = () => {
@@ -261,6 +279,15 @@ export default function Home() {
 
   return (
     <>
+      {showGate && (
+        <InvitationGate
+          audioRef={audioRef}
+          onOpenComplete={() => {
+            setShowGate(false);
+            localStorage.setItem("gateOpened", "true");
+          }}
+        />
+      )}
       <ParticleCanvas />
       <audio
         ref={audioRef}
@@ -286,6 +313,7 @@ export default function Home() {
           </video>
           <div className="video-landing__veil" aria-hidden="true" />
           <div className="video-landing__caption">
+            <p className="scroll-text">Scroll to Explore</p>
             <span className="scroll-chevron" aria-hidden="true" />
           </div>
         </section>
